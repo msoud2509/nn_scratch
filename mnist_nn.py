@@ -26,12 +26,8 @@ class NeuralNetwork:
 
 
     def compute_crossentropy_loss(self, y):
-
         L_sum = np.sum(np.multiply(y, np.log(self.activationlayer2)))
-        m = y.shape[1]
-        L = -(1/m) * L_sum
-
-        return L
+        return -(1 / y.shape[1]) * L_sum
     
     #activation functions
     def activation_SoftMax(self, x):
