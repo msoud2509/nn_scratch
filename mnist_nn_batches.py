@@ -1,4 +1,5 @@
 from mnist_nn import NeuralNetwork
+import numpy as np
 
 #only if you want to train in batches, else use the superclass in mnist_nn.py
 class NN_batches(NeuralNetwork):
