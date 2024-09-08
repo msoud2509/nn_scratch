@@ -1,5 +1,4 @@
 from mnist_nn import NeuralNetwork
-from load_mnistdataset import get_data, one_hot_encode
 
 #only if you want to train in batches, else use the superclass in mnist_nn.py
 class NN_batches(NeuralNetwork):
