@@ -1,5 +1,4 @@
 import numpy as np
-from load_mnistdataset import get_data, one_hot_encode
 
 class NeuralNetwork:
     def __init__(self, X, y, hiddenlayer_neurons, learning_rate):
