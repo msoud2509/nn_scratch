@@ -64,5 +64,6 @@ def main(hiddenlayer_neurons, learning_rate, epochs, batches = False, batch_size
     #convert to percent cause it looks cooler
     print('Accuracy: ', (((accuracycount / len(outputs))) * 100), '%')
 
+#example run
 if __name__ == '__main__':
     main(hiddenlayer_neurons = 200, learning_rate = .99, epochs = 10, batches=True, batch_size=64)
