@@ -3,7 +3,11 @@ from sklearn.model_selection import train_test_split
 from sklearn.datasets import fetch_openml
 
 def get_data():
-    #X, y = datasets.load_digits(return_X_y = True)
+    '''gets mnist data from scikit-learn in the form of numpyarrays
+       must one hot encode output data as demonstrated in main method in main.py
+    '''
+
+    
     X, y = fetch_openml('mnist_784', version=1, return_X_y=True)
 
     #convert pandas series to numpy arrays
@@ -22,6 +26,10 @@ def get_data():
     return X_train, y_train, X_test, y_test
 
 def one_hot_encode(y):
+    '''converts vector of output values to matrix of size 10x(size of vector)
+       must be converted to fit model and effectively compute loss
+    '''
+    
     y_encoded = np.zeros((10,y.shape[0]))
     for i in range(y.shape[0]):
         y_encoded[int(y[i]),i] = 1
