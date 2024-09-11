@@ -1,7 +1,14 @@
 import numpy as np
 
 class NeuralNetwork:
+    '''class to take input and output data to train model using whole dataset at once
+       to train using batches, see mnist_nn_batches.py
+    '''
     def __init__(self, X, y, hiddenlayer_neurons, learning_rate):
+        '''initializes class with input data (X) and output data (y)
+           see main.py for hiddenlayer_neurons and learning_rate
+        '''
+        
         self.inputs = X
         self.y = y
 
@@ -25,24 +32,37 @@ class NeuralNetwork:
 
 
     def compute_crossentropy_loss(self, y):
+        '''computes final loss between predicted output and actual output'''
+        
         L_sum = np.sum(np.multiply(y, np.log(self.activationlayer2)))
         return -(1 / y.shape[1]) * L_sum
     
     #activation functions
     def activation_SoftMax(self, x):
+        '''activation function for final outputlayer in order to effectively compute loss'''
+        
         assert 0 not in np.sum(np.exp(x), axis=0)
         return np.exp(x) / np.sum(np.exp(x), axis=0)
     
     def crossentropy_SoftMax_derivative(self, output, y_train):
+        '''derivate of loss function for backpropogation'''
         return output - y_train
     
     def ReLu(self, x, derivative = False):
+        '''rectified linear activation function for hidden layer
+           use default derivative = False for forward and derivative = True for backpropogation
+        '''
+        
         if derivative:
             return np.where(x <= 0, 0, 1)
         return np.maximum(0, x)
     
     #a full forward pass through all layers
     def fullforward_pass(self, x):
+        '''takes input data and does a forward pass with whole input dataset and gets
+           self.activationlayer2 in order to compare it with acutal data to compute loss
+        '''
+        
         self.hiddenlayer = np.dot(self.weights1, x) + self.biases1
         self.activationlayer1 = self.ReLu(self.hiddenlayer)
         self.outputlayer = np.dot(self.weights2, self.activationlayer1) + self.biases2
@@ -52,6 +72,10 @@ class NeuralNetwork:
     
 
     def backward(self, x, y):
+        '''takes input and actual output data to compute loss and updates weights and biases
+                - uses momentum
+        '''
+        
         #get gradient for second set of weights and biases
         dL_dZ2 = self.crossentropy_SoftMax_derivative(self.activationlayer2, y)
         dL_dW2 = (1./y.shape[1]) * np.matmul(dL_dZ2, self.activationlayer1.T)
@@ -76,5 +100,6 @@ class NeuralNetwork:
         self.biases1 -= self.lr * self.V_db1
 
     def train(self):
+        '''one iteration of forward pass and backprop to update weights and biases'''
         self.fullforward_pass(self.inputs)
         self.backward(self.inputs, self.y)
