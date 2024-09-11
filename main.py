@@ -4,6 +4,19 @@ from mnist_nn_batches import NN_batches
 from mnist_nn import NeuralNetwork
 
 def main(hiddenlayer_neurons, learning_rate, epochs, batches = False, batch_size = 128):
+    '''main method to train and test data using methods found in mnist_nn.py, mnist_batches.py
+
+            hiddenlayer_neurons: integer that sets the number of neurons in the hiddenlayer
+            learning_rate: float that decides how much weights and biases change per epoch (should be between 0-1)
+            epochs: number of times model is trained, if using batches whole dataset will be trained per epoch
+            batches: defaults to false, if training by batches, the NN_batches subclass will be used
+            
+            batch_size: defaults to 128, decides how many cases will be trained at once
+                - low batchsize means more accuracy, but longer to run
+                - high batchsize runs faster but is innacurate and can lead to overfitting of data
+
+    '''
+    
     #fetch data
     #always use encoded sets when calculating loss
     X_train, y_train, X_test, y_test = get_data()
